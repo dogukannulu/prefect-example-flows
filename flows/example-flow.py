@@ -19,5 +19,5 @@ def testFlow():
     info = getInfo()
     print(info)
 
-if __name__ == "main":
+if __name__ == "__main__":
     testFlow()
