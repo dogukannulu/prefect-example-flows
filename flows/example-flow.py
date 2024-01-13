@@ -3,6 +3,9 @@ import pandas as pd
 import requests
 
 from prefect import flow, task
+from prefect.filesystems import GitHub
+
+github_block = GitHub.load("prefect-github")
 
 
 @task
