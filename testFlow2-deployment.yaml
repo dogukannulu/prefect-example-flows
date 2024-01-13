@@ -1,0 +1,51 @@
+###
+### A complete description of a Prefect Deployment for flow 'testFlow2'
+###
+name: example-flow-2
+description: null
+version: 60b0a2bc7fe970facf02b9f2db8fd0ab
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+work_pool_name: null
+tags: []
+parameters: {}
+schedule: null
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: testFlow2
+manifest_path: null
+storage:
+  repository: https://github.com/dogukannulu/prefect-example-flows.git
+  reference: null
+  access_token: '**********'
+  include_git_objects: true
+  _block_document_id: ca647be4-9087-474c-9413-27f36e1f337b
+  _block_document_name: prefect-github
+  _is_anonymous: false
+  block_type_slug: github
+  _block_type_slug: github
+path: flows
+entrypoint: flows/example-flow-2.py:testFlow2
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null
+timestamp: '2024-01-13T17:51:08.904943+00:00'
+triggers: []
+enforce_parameter_schema: null
