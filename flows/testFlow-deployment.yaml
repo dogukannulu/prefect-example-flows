@@ -32,7 +32,7 @@ infrastructure:
   block_type_slug: process
   _block_type_slug: process
 storage:
-  repository: https://github.com/dogukannulu/prefect-test-multiflow.git
+  repository: https://github.com/dogukannulu/prefect-example-flows.git
   reference: null
   access_token: '**********'
   include_git_objects: true
@@ -41,7 +41,7 @@ storage:
   _is_anonymous: false
   block_type_slug: github
   _block_type_slug: github
-path: flows
+path: 'flows'
 entrypoint: example-flow.py:testFlow
 parameter_openapi_schema:
   title: Parameters
@@ -49,6 +49,6 @@ parameter_openapi_schema:
   properties: {}
   required: null
   definitions: null
-timestamp: '2024-01-13T15:09:27.080275+00:00'
+timestamp: '2024-01-13T15:18:29.590334+00:00'
 triggers: []
 enforce_parameter_schema: null
