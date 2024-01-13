@@ -1,0 +1,12 @@
+pandas
+duckdb
+minio
+matplotlib
+beautifulsoup4
+numpy
+fastparquet
+pyarrow
+tqdm
+hl7
+pysftp==0.2.8
+polars
