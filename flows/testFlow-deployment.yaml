@@ -41,7 +41,7 @@ storage:
   _is_anonymous: false
   block_type_slug: github
   _block_type_slug: github
-path: 'flows'
+path: flows
 entrypoint: example-flow.py:testFlow
 parameter_openapi_schema:
   title: Parameters
@@ -49,6 +49,6 @@ parameter_openapi_schema:
   properties: {}
   required: null
   definitions: null
-timestamp: '2024-01-13T15:18:29.590334+00:00'
+timestamp: '2024-01-13T15:20:35.376050+00:00'
 triggers: []
 enforce_parameter_schema: null
