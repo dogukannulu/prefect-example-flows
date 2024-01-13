@@ -18,5 +18,5 @@ def testFlow2():
     info = time()
     print(info)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     testFlow2()
