@@ -15,3 +15,6 @@ def getInfo():
 def testFlow():
     info = getInfo()
     print(info)
+
+if __name__ == "main":
+    testFlow()
