@@ -1,33 +1,47 @@
 ###
 ### A complete description of a Prefect Deployment for flow 'testFlow2'
 ###
-name: example-flow-2
+name: example-flow-2-deployment
 description: null
-version: 60b0a2bc7fe970facf02b9f2db8fd0ab
+version: 3e6f9e95cebbe4025a35403549553702
 # The work queue that will handle this deployment's runs
-work_queue_name: default
+work_queue_name: example-test
 work_pool_name: null
 tags: []
 parameters: {}
 schedule: null
 is_schedule_active: null
 infra_overrides: {}
-infrastructure:
-  type: process
-  env: {}
-  labels: {}
-  name: null
-  command: null
-  stream_output: true
-  working_dir: null
-  block_type_slug: process
-  _block_type_slug: process
 
 ###
 ### DO NOT EDIT BELOW THIS LINE
 ###
 flow_name: testFlow2
 manifest_path: null
+infrastructure:
+  type: docker-container
+  env:
+    EXTRA_PIP_PACKAGES: pandas duckdb minio matplotlib beautifulsoup4 numpy fastparquet
+      pyarrow tqdm hl7 pysftp==0.2.8 polars
+  labels: {}
+  name: prefect-docker-container
+  command: null
+  image: prefecthq/prefect:2.14.13-python3.11
+  image_pull_policy: null
+  image_registry: null
+  networks: []
+  network_mode: null
+  auto_remove: false
+  volumes: []
+  stream_output: true
+  memswap_limit: null
+  mem_limit: null
+  privileged: false
+  _block_document_id: a0eeaa7d-0ddc-4a8a-932c-a84a6a93d354
+  _block_document_name: prefect-docker-container
+  _is_anonymous: false
+  block_type_slug: docker-container
+  _block_type_slug: docker-container
 storage:
   repository: https://github.com/dogukannulu/prefect-example-flows.git
   reference: null
@@ -38,7 +52,7 @@ storage:
   _is_anonymous: false
   block_type_slug: github
   _block_type_slug: github
-path: flows
+path: ''
 entrypoint: flows/example-flow-2.py:testFlow2
 parameter_openapi_schema:
   title: Parameters
@@ -46,6 +60,6 @@ parameter_openapi_schema:
   properties: {}
   required: null
   definitions: null
-timestamp: '2024-01-13T17:51:08.904943+00:00'
+timestamp: '2024-01-14T16:50:47.949175+00:00'
 triggers: []
 enforce_parameter_schema: null

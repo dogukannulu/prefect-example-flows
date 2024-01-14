@@ -9,26 +9,34 @@ logger = get_run_logger()
 logger.info('something to log')
 ```
 
-- We have two options for deployments:
-
-If we have multiple flows, we can define them in a single Python script. We can use the following commands so that we create multiple deployments for them:
-
-```
-first_deployment = first_flow.to_deployment(name="first_deployment", cron = '* * * * *')
-second_deployment = second_flow.to_deployment(name="second_deployment", cron = '* * * * *')
-serve(first_deployment, second_deployment)
-```
-
-Instead of using these, we can use:
-
-```
-prefect deployment build <entrypoint>
-```
-
 
 ## Steps:
 
-### GitHub Connection:
+First, we have to access Prefect Cloud by running the below command in the terminal:
+
+```
+prefect cloud login
+```
+
+Then, we should enable the local machine to be able to work in the Prefect Cloud. After accessing the cloud, we should follow the below steps.
+
+### Secret Block
+
+1. Go to __Blocks__ section in the Prefect Cloud and create __Secret__ block.
+2. Define the block name as `github-access-token`
+3. Populate the value with the GitHub access token. You can get the access token from the GitHub page __Settings -> Developer Settings -> Personal Access Tokens__
+4. The reason of doing this -> We will use this secret in `prefect.yaml` file
+
+```
+pull:
+- prefect.deployments.steps.git_clone:
+    repository: https://github.com/dogukannulu/prefect-example-flows.git
+    branch: main
+    access_token: "{{ prefect.blocks.secret.github-access-token }}"
+```
+
+
+### GitHub Block:
 
 1. Go to __Blocks__ section and add a new block.
 Choose __GitHub__
@@ -48,33 +56,41 @@ from prefect.filesystems import GitHub
 github_block = GitHub.load("prefect-github")
 ```
 
--- Starting from this point, we should follow the steps if we want to create a deployment locally. If not, proceed to __Secret Block__ section
-
-4. While creating the deployment, we will run the command so that Prefect will get the files from our GitHub repository:
-`prefect deployment build flows/example-flow.py:testFlow -n example-flow -sb github/prefect-github/flows --apply`
-
 Doing this will help us define the storage block.
 ![Alt text](img/image-2.png)
 
 5. After doing all these, we have to start the agent.
 
-### Secret Block
+### Docker Block
 
-1. Go to __Blocks__ section in the Prefect Cloud and create __Secret__ block.
-2. Define the block name as `github-access-token`
-3. Populate the value with the GitHub access token. 
-4. The reason of doing this -> We will use this secret in `prefect.yaml` file
+1. Create a new Docker container block from the __Blocks__ tab
+2. We should include the EXTRA_PIP_PACKAGES as the environmental variable
+![Alt text](img/image-3.png)
+3. If we want to directly run the flows with a predefined command such as below, we should define the command block accordingly
+```
+python3 flows/example-flow-2.py
+```
+4. If not, we should run the below command to create the deployment within the Docker infrastructure and GitHub as the storage block.
 
 ```
-pull:
-- prefect.deployments.steps.git_clone:
-    repository: https://github.com/dogukannulu/prefect-example-flows.git
-    branch: main
-    access_token: "{{ prefect.blocks.secret.github-access-token }}"
+prefect deployment build flows/example-flow.py:testFlow \
+  -n example-flow-deployment \
+  -q example-test \
+  -sb github/prefect-github \
+  -ib docker-container/prefect-docker-container \
+  -o example-flow-deployment \
+  --apply
 ```
 
+- -n example-flow-deployment specifies the name of the deployment to be example-flow-deployment
+- -q example-test the work queue to be example-test
+- -sb github/prefect-github specifies the storage to be the github/prefect-github block
+- -ib docker-container/prefect-docker-container specifies the infrastructure to be the docker-container/prefect-docker-container block
+- -o example-flow-deployment specifies the name of the YAML file to be example-flow-deployment.yaml
 
 ### Containerization with Docker
+
+In case we want to create customized Docker agents, we can use this and send the image to Docker Hub but Docker container block is recommended. We can only see the flow run by doing this.
 
 1. Create the `Dockerfile` in the main directory and populate it according to the use case
 2. Create a base image with the below command:
