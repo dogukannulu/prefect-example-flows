@@ -1,15 +1,5 @@
 # Instructions
 
-## Tricks (Just mentioning):
-- We can use logging for better observability for our flows:
-```
-from prefect import  get_run_logger
-
-logger = get_run_logger()
-logger.info('something to log')
-```
-
-
 ## Steps:
 
 First, we have to access Prefect Cloud by running the below command in the terminal:
@@ -108,3 +98,13 @@ docker run -e PREFECT_API_URL=YOUR_PREFECT_API_URL -e PREFECT_API_KEY=YOUR_API_K
 We can obtain the __PREFECT_API_KEY__ from the `API Keys` section of the Prefect Cloud. We can also obtain __PREFECT_API_URL__ by running `prefect config view` command
 
 4. Once we run the container, we will be able to see the Flow Run in Prefect Cloud 👍
+
+
+## Tricks (Just mentioning):
+- We can use logging for better observability for our flows:
+```
+from prefect import  get_run_logger
+
+logger = get_run_logger()
+logger.info('something to log')
+```
