@@ -56,11 +56,14 @@ Doing this will help us define the storage block.
 1. Create a new Docker container block from the __Blocks__ tab
 2. We should include the EXTRA_PIP_PACKAGES as the environmental variable
 ![Alt text](img/image-3.png)
-3. If we want to directly run the flows with a predefined command such as below, we should define the command block accordingly
+
+### Deployment
+
+1. If we want to directly run the flows with a predefined command such as below, we should define the command block accordingly
 ```
 python3 flows/example-flow-2.py
 ```
-4. If not, we should run the below command to create the deployment within the Docker infrastructure and GitHub as the storage block.
+2. If not, we should run the below command to create the deployment within the Docker infrastructure and GitHub as the storage block.
 
 First this one to create the work pool `prefect work-pool create 'example-test-pool'`
 
@@ -97,7 +100,7 @@ prefect agent start -p example-test-pool
 
 After running all these, we will be able to see the deployment on Prefect Cloud.
 
-5. To add environmental variables for the Docker block, we can define them inside the `Environment` section. For this specific example, I only defined the __EXTRA_PIP_PACKAGES__ env var
+3. To add environmental variables for the Docker block, we can define them inside the `Environment` section. For this specific example, I only defined the __EXTRA_PIP_PACKAGES__ env var
 
 ### Containerization with Docker
 
