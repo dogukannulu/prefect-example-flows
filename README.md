@@ -62,6 +62,10 @@ python3 flows/example-flow-2.py
 ```
 4. If not, we should run the below command to create the deployment within the Docker infrastructure and GitHub as the storage block.
 
+First this one to create the work pool `prefect work-pool create 'example-test-pool'`
+
+Then:
+
 ```
 prefect deployment build flows/example-flow.py:testFlow \
   -n example-flow-deployment \
@@ -69,7 +73,7 @@ prefect deployment build flows/example-flow.py:testFlow \
   -sb github/prefect-github \
   -ib docker-container/prefect-docker-container \
   -o example-flow-deployment \
-  --apply
+  -p example-test-pool
 ```
 
 - -n example-flow-deployment specifies the name of the deployment to be example-flow-deployment
@@ -77,6 +81,23 @@ prefect deployment build flows/example-flow.py:testFlow \
 - -sb github/prefect-github specifies the storage to be the github/prefect-github block
 - -ib docker-container/prefect-docker-container specifies the infrastructure to be the docker-container/prefect-docker-container block
 - -o example-flow-deployment specifies the name of the YAML file to be example-flow-deployment.yaml
+- -p example-test-pool specifies the work pool that will handle this deployment's runs
+
+--------- __Add Schedule__ ---------
+
+Above command will create a yaml file `example-flow.deployment.yaml`. We should first update the schedule parameter inside that
+![Alt text](img/image-4.png)
+
+Then, we should run the below commands:
+
+```
+prefect deployment apply example-flow.deployment.yaml
+prefect agent start -p example-test-pool
+```
+
+After running all these, we will be able to see the deployment on Prefect Cloud.
+
+5. To add environmental variables for the Docker block, we can define them inside the `Environment` section. For this specific example, I only defined the __EXTRA_PIP_PACKAGES__ env var
 
 ### Containerization with Docker
 

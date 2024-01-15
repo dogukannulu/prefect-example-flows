@@ -6,11 +6,11 @@ description: null
 version: 0bbff37f571e4858e6c8e27b066d7cb4
 # The work queue that will handle this deployment's runs
 work_queue_name: example-test
-work_pool_name: null
+work_pool_name: example-test-pool
 tags: []
 parameters: {}
-schedule: null
-is_schedule_active: null
+schedule: 3 0 * * *
+is_schedule_active: true
 infra_overrides: {}
 
 ###
@@ -60,6 +60,6 @@ parameter_openapi_schema:
   properties: {}
   required: null
   definitions: null
-timestamp: '2024-01-14T16:49:33.177473+00:00'
+timestamp: '2024-01-15T16:03:36.009545+00:00'
 triggers: []
 enforce_parameter_schema: null
